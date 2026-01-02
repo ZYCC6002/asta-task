@@ -1,0 +1,9 @@
+[project]
+name = "asta-task"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "mlx-lm==0.24.1",
+]
