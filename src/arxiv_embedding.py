@@ -138,8 +138,7 @@ def embed_documents(limit: Optional[int] = None, batch_size: int = 128, output_p
             # Save MLX tensor
             save_key = f"{output_prefix}_b{batch_idx}"
             try:
-                print(mx.array(ids).shape)
-                mx.save(save_key, mx.concatenate([mx.array(ids).reshape(-1, 1), normalized], axis=1))
+                mx.save(save_key, mx.concatenate([mx.array(ids, dtype=mx.bfloat16).reshape(-1, 1), normalized], axis=1))
                 print(f"Saved MLX tensor for batch {batch_idx} -> key: {save_key}")
             except Exception as e:
                 print(f"Warning: failed to mx.save batch {batch_idx}: {e}")
@@ -152,7 +151,7 @@ def embed_documents(limit: Optional[int] = None, batch_size: int = 128, output_p
         embedded += len(docs)
         save_key = f"{output_prefix}_b{batch_idx}"
         try:
-            mx.save(save_key, mx.concatenate([mx.array(ids).reshape(-1, 1), normalized], axis=1))
+            mx.save(save_key, mx.concatenate([mx.array(ids, dtype=mx.bfloat16).reshape(-1, 1), normalized], axis=1))
             print(f"Saved MLX tensor for batch {batch_idx} -> key: {save_key}")
         except Exception as e:
             print(f"Warning: failed to mx.save batch {batch_idx}: {e}")
